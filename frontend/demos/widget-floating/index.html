@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Message Assistant Widget</title>
+  <link rel="stylesheet" href="widget.css" />
+</head>
+
+<body>
+  <div id="ai-widget-root">
+    <button
+      class="ai-widget-launcher"
+      id="aiWidgetLauncher"
+      type="button"
+      title="AI Message Assistant"
+      aria-label="Open AI Message Assistant"
+    >✉️</button>
+
+    <div class="ai-widget-panel" id="aiWidgetPanel" aria-hidden="true">
+      <div class="ai-widget-header">
+        <div class="ai-widget-header-text">
+          <div class="ai-widget-title">AI Message Assistant</div>
+          <div class="ai-widget-subtitle">Generate professional B2B messages instantly</div>
+        </div>
+
+        <div class="ai-widget-header-actions">
+          <button id="themeToggle" class="theme-switch" type="button" aria-label="Toggle theme">
+            <span class="switch-track">
+              <span class="switch-thumb">
+                <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+
+                <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                </svg>
+              </span>
+            </span>
+          </button>
+
+          <button class="ai-widget-icon-btn" id="aiWidgetCloseBtn" type="button" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="ai-widget-body">
+        <form id="aiWidgetForm">
+          <div class="ai-widget-row">
+            <div class="ai-widget-col">
+              <label class="ai-widget-label" for="w_messageType">Communication Scenario</label>
+              <select id="w_messageType" class="ai-widget-input" required>
+                <option value="Business email">Cold outreach</option>
+                <option value="Follow-up">Follow-up</option>
+                <option value="Positive reply">Support check-in</option>
+                <option value="Clarification question">Renewal discussion</option>
+                <option value="WhatsApp message">WhatsApp message</option>
+              </select>
+            </div>
+
+            <div class="ai-widget-col">
+              <label class="ai-widget-label" for="w_recipientType">Audience</label>
+              <select id="w_recipientType" class="ai-widget-input" required>
+                <option value="Decision Maker">Decision Maker</option>
+                <option value="Head of Sales">Existing Customer</option>
+                <option value="Technical Contact">Technical Contact</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ai-widget-row">
+            <div class="ai-widget-col ai-widget-col-full">
+              <label class="ai-widget-label" for="w_topic">
+                Subject <span class="field-optional">Optional</span>
+              </label>
+
+              <input
+                id="w_topic"
+                type="text"
+                class="ai-widget-input"
+                placeholder="Main reason for reaching out"
+                required
+                lang="en"
+                spellcheck="false"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+              />
+            </div>
+          </div>
+
+          <div class="ai-widget-row">
+            <div class="ai-widget-col">
+              <label class="ai-widget-label" for="w_context">Context</label>
+              <textarea
+                id="w_context"
+                class="ai-widget-input ai-widget-textarea"
+                placeholder="Brief background (what happened so far?)"
+                required
+                lang="en"
+                spellcheck="false"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+              ></textarea>
+            </div>
+
+            <div class="ai-widget-col">
+              <label class="ai-widget-label" for="w_goal">Goal</label>
+              <textarea
+                id="w_goal"
+                class="ai-widget-input ai-widget-textarea"
+                placeholder="Desired outcome (call, reply, approval...)"
+                lang="en"
+                spellcheck="false"
+                autocomplete="off"
+                autocorrect="off"
+                autocapitalize="off"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="ai-widget-actions">
+            <button id="w_generateBtn" type="submit" class="ai-widget-btn-primary">
+              <span id="w_generateLabel">Generate</span>
+            </button>
+
+            <button id="w_clearBtn" type="button" class="ai-widget-btn-secondary">Clear</button>
+
+            <div class="ai-widget-status" id="w_status">
+              <span class="ai-widget-status-dot" id="w_statusDot"></span>
+              <span id="w_statusText">Ready</span>
+            </div>
+          </div>
+
+          <div id="w_errorContainer" class="ai-widget-error" style="display:none;"></div>
+
+          <div id="w_resultSection" class="ai-widget-result-block" style="display:none;">
+            <div class="ai-widget-result-header">
+              <div>
+                <span class="ai-widget-result-label">Generated message</span>
+                <span class="ai-widget-badge" id="w_metaBadge"></span>
+              </div>
+              <button id="w_copyBtn" type="button" class="ai-widget-btn-secondary ai-widget-btn-small">Copy</button>
+            </div>
+
+            <textarea
+              id="w_resultBox"
+              class="ai-widget-result-box"
+              spellcheck="false"
+            ></textarea>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./widget.js"></script>
+</body>
+</html>

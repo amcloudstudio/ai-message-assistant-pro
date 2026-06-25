@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Message Assistant</title>
+  <link rel="stylesheet" href="./minimal.css" />
+</head>
+
+<body>
+  <div class="layout-container">
+    <div class="app">
+
+      <div class="app-header">
+        <div class="title-block">
+          <h1 class="app-title">AI Message Assistant</h1>
+          <p class="app-subtitle">Minimal AI-powered B2B messaging UI kit</p>
+        </div>
+
+        <button id="themeToggle" class="theme-switch" type="button" aria-label="Toggle theme">
+          <span class="switch-track" aria-hidden="true">
+            <span class="switch-thumb" aria-hidden="true">
+              <span class="icon icon-sun" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              </span>
+
+              <span class="icon icon-moon" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                </svg>
+              </span>
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <form id="messageForm">
+        <div class="row">
+          <div class="col">
+            <label for="messageType">Communication Scenario</label>
+            <select id="messageType" required>
+              <option value="Business email">Cold outreach</option>
+              <option value="Follow-up">Follow-up after call</option>
+              <option value="Positive reply">Post-demo summary</option>
+              <option value="Clarification question">Renewal discussion</option>
+              <option value="WhatsApp message">Support check-in</option>
+              <option value="Call proposal">Re-engagement message</option>
+              <option value="Call proposal">Partnership proposal</option>
+              <option value="Call proposal">Internal alignment message</option>
+            </select>
+            <div class="field-hint">Choose the context of your message</div>
+          </div>
+
+          <div class="col">
+            <label for="recipientType">Audience</label>
+            <select id="recipientType" required>
+              <option value="Decision Maker">Decision Maker</option>
+              <option value="Head of Sales">Business Stakeholder</option>
+              <option value="Key User">Technical Contact</option>
+              <option value="Procurement">Procurement / Finance</option>
+              <option value="Technical Contact">Existing Customer</option>
+              <option value="Technical Contact">Cold Prospect</option>
+              <option value="Technical Contact">Internal Team</option>
+            </select>
+            <div class="field-hint">Who will receive this message?</div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col col-full">
+            <label for="topic">Subject</label>
+            <input id="topic" type="text" placeholder="Quarterly review, renewal, pricing update…" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label for="context">Context</label>
+            <textarea id="context" placeholder="What happened so far? Any previous calls, emails, concerns, blockers?" required></textarea>
+          </div>
+
+          <div class="col">
+            <label for="goal">Goal</label>
+            <textarea id="goal" placeholder="What do you want from the customer? Book a call, sign, answer a question…"></textarea>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="generateBtn" type="submit" class="btn-primary">
+            <span id="generateLabel">Generate</span>
+          </button>
+
+          <button id="clearBtn" type="button" class="btn-secondary">Clear</button>
+
+          <div id="status" class="status">
+            <span id="statusDot" class="status-dot"></span>
+            <span id="statusText">Ready</span>
+          </div>
+        </div>
+
+        <div id="errorContainer" class="error-text" style="display:none;"></div>
+
+        <div id="resultSection" class="result-block" style="display:none;">
+          <div class="result-label-row">
+            <div>
+              <span class="result-label">Generated message</span>
+              <span class="badge" id="metaBadge"></span>
+            </div>
+            <button id="copyBtn" type="button" class="btn-secondary btn-small">Copy</button>
+          </div>
+          <textarea id="resultBox" class="result-box result-textarea"></textarea>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <script type="module" src="./minimal.js"></script>
+</body>
+</html>
